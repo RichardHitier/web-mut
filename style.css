@@ -1,0 +1,30 @@
+table {
+    border-collapse:collapse
+} 
+
+tr:nth-child(even){
+    background: #dae5f4;
+}
+
+tr:nth-child(odd){
+    background: #b8d1f3;
+}
+
+th, td {
+    border-top: 1pt solid black;
+    border-bottom: 1pt solid black;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-right: solid black 1px;
+    border-left: solid black 1px;
+}
+
+form {
+margin-bottom: 1em;
+}
+#hidden_cdt {
+visibility: hidden;
+}
+#cdt {
+padding-left: 6em;
+}
