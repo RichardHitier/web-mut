@@ -13,10 +13,6 @@
 // I know this script is quickly and dirtily written.
 // please, dont let me know ;-)
 
-//$data_arr = csv2data("../LYC_AGREG/Stabiliser/NET/MUTES_A.150602_15-06-34.LYC_AGREG");
-//$data_arr = csv2data("MUTES_A.150529_17-12-09-1.LYC_SANSA.csv");
-//$data_arr = csv2data("MUTES_A.150602_15-06-34.LYC_AGREG.csv");
-
 $files = array("MUTES_A.150529_17-12-09.LYC_SANSAG.csv" , "MUTES_A.150602_15-06-34.LYC_AGREG.csv");
 
 
@@ -38,7 +34,7 @@ $mats = array_merge( array( 'x') ,
         array_unique(
             array_column( $data_arr, 1)));
 $dpts = array( 'x', '11', '30', '34', '48', '66');
-$types = array( 'x', 'DPT', 'COM', 'GEO', 'ZR');
+$types = array( 'x', 'DPT', 'COM', 'GEO', 'COM|GEO', 'ZR', 'ZRE', 'ZRD');
 $orders = array( 'ASC', 'DESC');
 
 echo '<select id="file_select" name="file">';
@@ -84,6 +80,7 @@ echo ' </form>';
 
 
 $data_arr = filterdata( $data_arr, $mat, $dpt, $type );
+
 
 // sort the array by bareme
 $bareme = array_column( $data_arr, 4);
@@ -164,7 +161,7 @@ function filterdata($data_arr, $mat, $dpt, $type){
     foreach ( $data_arr as $row){
         if ( ( 'x' == $mat or $row[1] == $mat )
          and ( 'x' == $dpt or $row[2] == $dpt )
-         and ( 'x' == $type or ( strpos( $row[6], $type) !== false ) ) ) {
+         and ( 'x' == $type or ( preg_match( '/'.$type.'/', $row[6]) !== 0 ) ) ) {
              array_push( $data_res, $row);
         }
     }
