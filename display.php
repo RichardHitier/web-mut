@@ -21,11 +21,12 @@ $mat=( isset($_GET['mat']) && !empty($_GET['mat']) ) ? $_GET['mat'] : 'x';
 $dpt=( isset($_GET['dpt']) && !empty($_GET['dpt']) ) ? $_GET['dpt'] : 'x';
 $type=( isset($_GET['type']) && !empty($_GET['type']) ) ? $_GET['type'] : 'x';
 $order=( isset($_GET['order']) && !empty($_GET['order']) ) ? $_GET['order'] : 'ASC';
+$over=( isset($_GET['over']) && !empty($_GET['over']) ) ? $_GET['over'] : 'no';
 
 $sort_order = ( $order == 'ASC' ) ? SORT_ASC:SORT_DESC;
 
 
-//--------------------------------------------------------------
+//------------ get datas from selected file --------------------
 $data_arr = csv2data($file);
 //--------------------------------------------------------------
 
@@ -34,6 +35,7 @@ $mats = array_merge( array( 'x') ,
         array_unique(
             array_column( $data_arr, 1)));
 $dpts = array( 'x', '11', '30', '34', '48', '66');
+$overs = array( 'x', 'over');
 $types = array( 'x', 'DPT', 'COM', 'GEO', 'COM|GEO', 'ZR', 'ZRE', 'ZRD');
 $orders = array( 'ASC', 'DESC');
 
@@ -64,12 +66,21 @@ foreach( $types as &$ltype){
 }
 echo '</select> ';
 
+echo '<select id="ov_select" name="over">';
+foreach( $overs as &$lover){
+    $selected = ($over == $lover)?'selected="selected"':'';
+    echo ' <option value="'. $lover .'" '.$selected.'> '.$lover.'</option>';
+}
+echo '</select> ';
+
+
 echo '<select id="order_select" name="order">';
 foreach( $orders as &$lorder){
     $selected = ($order == $lorder)?'selected="selected"':'';
     echo ' <option value="'. $lorder .'" '.$selected.'> barême '.$lorder.'</option>';
 }
 echo '</select> ';
+
 
 echo '<input type="submit"/>';
 echo '<span id="cdt"> candidats trouvés</span>';
@@ -79,7 +90,7 @@ echo ' </form>';
 
 
 
-$data_arr = filterdata( $data_arr, $mat, $dpt, $type );
+$data_arr = filterdata( $data_arr, $mat, $dpt, $type, $over );
 
 
 // sort the array by bareme
@@ -156,11 +167,12 @@ function csv2data( $csvfile ){
 
 }
 
-function filterdata($data_arr, $mat, $dpt, $type){
+function filterdata($data_arr, $mat, $dpt, $type, $over){
     $data_res = array();
     foreach ( $data_arr as $row){
         if ( ( 'x' == $mat or $row[1] == $mat )
          and ( 'x' == $dpt or $row[2] == $dpt )
+         and ( 'x' == $over or preg_match( '/\d\d\d/', $row[5]) )
          and ( 'x' == $type or ( preg_match( '/'.$type.'/', $row[6]) !== 0 ) ) ) {
              array_push( $data_res, $row);
         }
