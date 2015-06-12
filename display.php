@@ -24,17 +24,17 @@ $mat=( isset($_GET['mat']) && !empty($_GET['mat']) ) ? $_GET['mat'] : 'x';
 $dpt=( isset($_GET['dpt']) && !empty($_GET['dpt']) ) ? $_GET['dpt'] : 'x';
 $type=( isset($_GET['type']) && !empty($_GET['type']) ) ? $_GET['type'] : 'x';
 $order=( isset($_GET['order']) && !empty($_GET['order']) ) ? $_GET['order'] : 'ASC';
-$over=( isset($_GET['over']) && !empty($_GET['over']) ) ? $_GET['over'] : 'no';
+$over=( isset($_GET['over']) && !empty($_GET['over']) ) ? $_GET['over'] : 'x';
 
 $sort_order = ( $order == 'ASC' ) ? SORT_ASC:SORT_DESC;
 
-echo "<h2>Fichier de données: <a href=\"$file\">$file</a></h2>";
 
 
 //------------ get datas from selected file --------------------
-//$data_arr = csv2data($file);
 $data_arr = tab2data($file);
 //--------------------------------------------------------------
+
+echo "<h2>".count($data_arr)." lignes dans le fichier: <a href=\"$file\">$file</a></h2>";
 
 // build matiers liste from data
 $mats = array_merge( array( 'x') ,
@@ -89,10 +89,8 @@ echo '</select> ';
 
 
 echo '<input type="submit"/>';
-echo '<span id="cdt"> candidats trouvés</span>';
+echo '<span id="cdt"> candidats filtrés</span>';
 echo ' </form>';
-
-
 
 
 
@@ -172,6 +170,7 @@ function csv2data( $csvfile ){
     return $data_arr;
 
 }
+
 function tab2data( $tabedfile){
     $fields_length=array(7, 6, 4, 4, 7, 4, 20, 11, 11, 11, 40, 9, 60);
 
