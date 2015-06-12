@@ -12,9 +12,9 @@
 <?php
 include( "./common.php");
 global $dirs;
-echo '<ul>';
+echo '<ul class="dir_list">';
 foreach ( $dirs as $dir ){
-    echo  "<li><a href=".$dir."/".$dir."-ENTREE.html>".$dir."</a></li>";
+    echo  "<li><a href=".$dir."/".$dir."-ENTREE.html>".$dir."/</a></li>";
 }
 echo '</ul>';
 ?>

@@ -1,8 +1,17 @@
-.nav_btn {
+a.nav_btn:hover, .dir_list a:hover{
+    background-color: yellow;
+}
+a.nav_btn, .dir_list a{
     color: black;
-    border: solid black 1pt;
     text-decoration: none;
     padding: 0.2em;
+}
+.dir_list{
+    list-style-type: lower-greek;
+}
+
+a.nav_btn {
+    border: solid black 1pt;
 }
 
 .alert{
