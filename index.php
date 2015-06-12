@@ -19,7 +19,7 @@ foreach ( $dirs as $dir ){
 ?>
   </ul>
   <ul>
-      <li><a href='webse/display.php'>Les Mut'</a> </li>
+      <li><a href='./display.php'>Les Mut'</a> </li>
   </ul>
   </body>
 
