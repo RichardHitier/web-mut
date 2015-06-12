@@ -1,3 +1,4 @@
+<a href="./">accueil</a>
 <?php
 // show subdirs welcome page
 $subdirs = array_filter(glob('*'), 'is_dir');

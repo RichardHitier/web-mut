@@ -9,15 +9,15 @@
   </head>
 
   <body>
-  <ul>
 <?php
 include( "./common.php");
 global $dirs;
+echo '<ul>';
 foreach ( $dirs as $dir ){
     echo  "<li><a href=".$dir."/".$dir."-ENTREE.html>".$dir."</a></li>";
 }
+echo '</ul>';
 ?>
-  </ul>
   <ul>
       <li><a href='./display.php'>Les Mut'</a> </li>
   </ul>
