@@ -13,7 +13,10 @@
 // I know this script is quickly and dirtily written.
 // please, dont let me know ;-)
 
-$files = array("MUTES_A.150529_17-12-09.LYC_SANSAG.csv" , "MUTES_A.150602_15-06-34.LYC_AGREG.csv");
+include( "common.php");
+//$files = array("MUTES_A.150529_17-12-09.LYC_SANSAG.csv" , "MUTES_A.150602_15-06-34.LYC_AGREG.csv");
+//$files = array("MUTES_A.150602_17-09-03.EPS");
+global $files;
 
 
 $file=( isset($_GET['file']) && !empty($_GET['file']) ) ? $_GET['file'] : $files[0];
@@ -25,9 +28,12 @@ $over=( isset($_GET['over']) && !empty($_GET['over']) ) ? $_GET['over'] : 'no';
 
 $sort_order = ( $order == 'ASC' ) ? SORT_ASC:SORT_DESC;
 
+echo "<h2>Fichier de données: <a href=\"$file\">$file</a></h2>";
+
 
 //------------ get datas from selected file --------------------
-$data_arr = csv2data($file);
+//$data_arr = csv2data($file);
+$data_arr = tab2data($file);
 //--------------------------------------------------------------
 
 // build matiers liste from data
@@ -132,10 +138,10 @@ foreach ( $data_arr as &$row){
     foreach( $cols as &$col){
         $cont=$row[$col];
         if( $col == 10 ){
-            $cont='<a href="../'.typeoffile($file).'/Stabiliser/Editions/web/ROS-'.$row[8].'.html">'.$row[$col].'</a>';
+            $cont='<a href="'.typeoffile($file).'/Stabiliser/Editions/web/ROS-'.$row[8].'.html">'.$row[$col].'</a>';
         }
         if( $col == 12 ){
-            $cont='<a href="../'.typeoffile($file).'/Stabiliser/Editions/web/PIL-'.$row[1].'-'.$row[11].'.html">'.$row[$col].'</a>';
+            $cont='<a href="'.typeoffile($file).'/Stabiliser/Editions/web/PIL-'.$row[1].'-'.$row[11].'.html">'.$row[$col].'</a>';
         }
         echo "<td>" . $cont . "</td>\n";
     }
@@ -165,6 +171,26 @@ function csv2data( $csvfile ){
 
     return $data_arr;
 
+}
+function tab2data( $tabedfile){
+    $fields_length=array(7, 6, 4, 4, 7, 4, 20, 11, 11, 11, 40, 9, 60);
+
+    $fp=fopen( $tabedfile, "r");
+
+    while (!feof($fp)) {
+      $line = fgets($fp, 4096);
+
+      // split line into row array
+      $cursor_pos = 0;
+      $row = array();
+      foreach ($fields_length as $length) {
+        $row[] = trim(substr($line, $cursor_pos, $length));
+        $cursor_pos += $length;
+      }
+
+      $datas[] = $row;
+    }
+    return $datas;
 }
 
 function filterdata($data_arr, $mat, $dpt, $type, $over){
