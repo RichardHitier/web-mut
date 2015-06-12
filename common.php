@@ -1,4 +1,5 @@
-<a href="./">accueil</a>
+<a class="nav_btn" href="./index.php">répertoires web</a>
+<a class="nav_btn" href="./display.php">tableau dynamique</a>
 <?php
 // show subdirs welcome page
 $subdirs = array_filter(glob('*'), 'is_dir');

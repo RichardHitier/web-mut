@@ -18,9 +18,6 @@ foreach ( $dirs as $dir ){
 }
 echo '</ul>';
 ?>
-  <ul>
-      <li><a href='./display.php'>Les Mut'</a> </li>
-  </ul>
   </body>
 
 </html>

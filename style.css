@@ -1,6 +1,14 @@
+.nav_btn {
+    color: black;
+    border: solid black 1pt;
+    text-decoration: none;
+    padding: 0.2em;
+}
+
 .alert{
     color: red;
 }
+
 table {
     border-collapse:collapse
 } 
