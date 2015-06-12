@@ -176,18 +176,17 @@ function tab2data( $tabedfile){
 
     $fp=fopen( $tabedfile, "r");
 
-    while (!feof($fp)) {
-      $line = fgets($fp, 4096);
+    while ( ( $line = fgets($fp, 4096))!== false){
 
-      // split line into row array
-      $cursor_pos = 0;
-      $row = array();
-      foreach ($fields_length as $length) {
-        $row[] = trim(substr($line, $cursor_pos, $length));
-        $cursor_pos += $length;
-      }
+        // split line into row array
+        $cursor_pos = 0;
+        $row = array();
+        foreach ($fields_length as $length) {
+            $row[] = trim(substr($line, $cursor_pos, $length));
+            $cursor_pos += $length;
+        }
 
-      $datas[] = $row;
+        $datas[] = $row;
     }
     return $datas;
 }
