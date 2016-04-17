@@ -31,7 +31,8 @@ $sort_order = ( $order == 'ASC' ) ? SORT_ASC:SORT_DESC;
 
 
 //------------ get datas from selected file --------------------
-$data_arr = tab2data($file);
+$mutes_fields = array(7, 6, 4, 4, 7, 4, 20, 11, 11, 11, 40, 9, 60);
+$data_arr = tab2data($file, $mutes_fields);
 //--------------------------------------------------------------
 
 echo "<h2>".count($data_arr)." lignes dans le fichier: <a href=\"$file\">$file</a></h2>";
@@ -171,25 +172,6 @@ function csv2data( $csvfile ){
 
 }
 
-function tab2data( $tabedfile){
-    $fields_length=array(7, 6, 4, 4, 7, 4, 20, 11, 11, 11, 40, 9, 60);
-
-    $fp=fopen( $tabedfile, "r");
-
-    while ( ( $line = fgets($fp, 4096))!== false){
-
-        // split line into row array
-        $cursor_pos = 0;
-        $row = array();
-        foreach ($fields_length as $length) {
-            $row[] = trim(substr($line, $cursor_pos, $length));
-            $cursor_pos += $length;
-        }
-
-        $datas[] = $row;
-    }
-    return $datas;
-}
 
 function filterdata($data_arr, $mat, $dpt, $type, $over){
     $data_res = array();
