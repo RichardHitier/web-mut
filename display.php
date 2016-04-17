@@ -24,6 +24,7 @@ $file=( isset($_GET['file']) && !empty($_GET['file']) ) ? $_GET['file'] : $files
 $mat=( isset($_GET['mat']) && !empty($_GET['mat']) ) ? $_GET['mat'] : 'x';
 $dpt=( isset($_GET['dpt']) && !empty($_GET['dpt']) ) ? $_GET['dpt'] : 'x';
 $type=( isset($_GET['type']) && !empty($_GET['type']) ) ? $_GET['type'] : 'x';
+$bar=( isset($_GET['bar']) && !empty($_GET['bar']) ) ? $_GET['bar'] : 'x';
 $order=( isset($_GET['order']) && !empty($_GET['order']) ) ? $_GET['order'] : 'ASC';
 $over=( isset($_GET['over']) && !empty($_GET['over']) ) ? $_GET['over'] : 'x';
 
@@ -60,6 +61,10 @@ echo "<h2>".count($cdt_arr)." lignes dans le fichier: <a href=\"$file\">$file</a
 $mats = array_merge( array( 'x') ,
                      array_unique( array_column( $cdt_arr, 1))
                    );
+// build barem list from data
+$barems = array_merge( array( 'x') ,
+                     array_unique( array_column( $cdt_arr, 7))
+                   );
 $dpts = array( 'x', '11', '30', '34', '48', '66');
 $overs = array( 'x', 'over');
 $types = array( 'x', 'DPT', 'COM', 'GEO', 'COM|GEO', 'ZR', 'ZRE', 'ZRD');
@@ -82,6 +87,13 @@ echo '<select id="dpt_select" name="dpt">';
 foreach( $dpts as &$ldpt ){
     $selected = ($dpt == $ldpt)?'selected="selected"':'';
     echo ' <option value="'. $ldpt .'" '. $selected.'>'.$ldpt.'</option>';
+}
+echo '</select> ';
+
+echo '<select id="barem_select" name="bar">';
+foreach( $barems as &$lbar ){
+    $selected = ($bar == $lbar)?'selected="selected"':'';
+    echo ' <option value="'. $lbar .'" '. $selected.'>'.$lbar.'</option>';
 }
 echo '</select> ';
 
@@ -114,7 +126,7 @@ echo ' </form>';
 
 
 
-$cdt_arr = filterdata( $cdt_arr, $mat, $dpt, $type, $over );
+$cdt_arr = filterdata( $cdt_arr, $mat, $dpt, $bar, $type, $over );
 
 
 // sort the array by bareme
@@ -186,10 +198,11 @@ function csv2data( $csvfile ){
 }
 
 
-function filterdata($cdt_arr, $mat, $dpt, $type, $over){
+function filterdata($cdt_arr, $mat, $dpt, $bar, $type, $over){
     $data_res = array();
     foreach ( $cdt_arr as $row){
         if ( ( 'x' == $mat or $row[1] == $mat )
+         and ( 'x' == $bar or $row[7] == $bar )
          and ( 'x' == $dpt or $row[2] == $dpt )
          and ( 'x' == $over or preg_match( '/\d\d\d/', $row[5]) )
          and ( 'x' == $type or ( preg_match( '/'.$type.'/', $row[6]) !== 0 ) ) ) {
