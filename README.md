@@ -4,4 +4,11 @@ small set of php scripts to parse output of webalgo, an "education nationale" to
 
 ## prerequisites
 
-download jquery and place it at the root of this project.
+    - some XAMP environement, like easyphp on windows.
+    - download jquery and place it at the root of this project.
+
+## run
+
+uncompress here the folders (tar.gz) you get from the rectorat.
+
+view in your browser
