@@ -14,6 +14,7 @@
 // please, dont let me know ;-)
 
 include( "common.php");
+include( "./commonlib.php");
 //$files = array("MUTES_A.150529_17-12-09.LYC_SANSAG.csv" , "MUTES_A.150602_15-06-34.LYC_AGREG.csv");
 //$files = array("MUTES_A.150602_17-09-03.EPS");
 global $files;
@@ -35,12 +36,30 @@ $mutes_fields = array(7, 6, 4, 4, 7, 4, 20, 11, 11, 11, 40, 9, 60);
 $data_arr = tab2data($file, $mutes_fields);
 //--------------------------------------------------------------
 
-echo "<h2>".count($data_arr)." lignes dans le fichier: <a href=\"$file\">$file</a></h2>";
+//------------ also get  from selected file --------------------
+// extract base dir from MUTES file
+// and get associativ VOEUX array
+$eltvoe_file=dirname( $file )."/ELTVOE_A.".typeoffile($file);
+$eltvoe_arr=voeu2bareme( $eltvoe_file );
+//--------------------------------------------------------------
+
+//// now  change idvoeu 2 barem // as column for $data_arr
+$cdt_arr = array();
+foreach( $data_arr as $row){
+    $barem=$eltvoe_arr[$row[7]];
+    //printf('<'.$row[7].'>\n');
+    //printf('<'.$barem.'>\n');
+    $row[7]=$barem;
+    array_push( $cdt_arr, $row);
+}
+//$cdt_arr = array_map( function($row) use ($eltvoe_arr) { row[7] = $eltvoe_arr[row[7]]; return row;} );
+
+echo "<h2>".count($cdt_arr)." lignes dans le fichier: <a href=\"$file\">$file</a></h2>";
 
 // build matiers liste from data
 $mats = array_merge( array( 'x') ,
-        array_unique(
-            array_column( $data_arr, 1)));
+                     array_unique( array_column( $cdt_arr, 1))
+                   );
 $dpts = array( 'x', '11', '30', '34', '48', '66');
 $overs = array( 'x', 'over');
 $types = array( 'x', 'DPT', 'COM', 'GEO', 'COM|GEO', 'ZR', 'ZRE', 'ZRD');
@@ -95,14 +114,14 @@ echo ' </form>';
 
 
 
-$data_arr = filterdata( $data_arr, $mat, $dpt, $type, $over );
+$cdt_arr = filterdata( $cdt_arr, $mat, $dpt, $type, $over );
 
 
 // sort the array by bareme
-$bareme = array_column( $data_arr, 4);
-array_multisort( $bareme, $sort_order, $data_arr);
+$bareme = array_column( $cdt_arr, 4);
+array_multisort( $bareme, $sort_order, $cdt_arr);
 
-$cols = array(1,2,3,4,5,6,7,8,9,10,11,12);
+$cols = array(0,1,2,3,4,5,6,7,8,9,10,11,12);
 //$cols = array(1,2,3,4,5,6,10,11,12);
 $headings = array(
             'phase2',
@@ -132,7 +151,7 @@ echo "</tr>";
 // then data rows
 $num=0;
 // TODO: sort before display
-foreach ( $data_arr as &$row){
+foreach ( $cdt_arr as &$row){
     $num++;
     echo "<tr>";
     foreach( $cols as &$col){
@@ -154,22 +173,22 @@ echo '<span id="hidden_cdt">'.$num.'</span>';
 function csv2data( $csvfile ){
 
     // get array from csv
-    $data_arr = array();
+    $cdt_arr = array();
     if (($handle = fopen($csvfile, "r")) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            array_push( $data_arr, $data);
+            array_push( $cdt_arr, $data);
         }
     }
     fclose($handle);
 
-    return $data_arr;
+    return $cdt_arr;
 
 }
 
 
-function filterdata($data_arr, $mat, $dpt, $type, $over){
+function filterdata($cdt_arr, $mat, $dpt, $type, $over){
     $data_res = array();
-    foreach ( $data_arr as $row){
+    foreach ( $cdt_arr as $row){
         if ( ( 'x' == $mat or $row[1] == $mat )
          and ( 'x' == $dpt or $row[2] == $dpt )
          and ( 'x' == $over or preg_match( '/\d\d\d/', $row[5]) )
