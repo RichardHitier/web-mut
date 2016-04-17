@@ -21,33 +21,4 @@ if ( 0 == count( $dirs)){
     exit;
 }
 
-// some libs func //
-
-
-function tab2data( $tabedfile, $fields_length){
-
-    $fp=fopen( $tabedfile, "r");
-
-    while ( ( $line = fgets($fp, 4096))!== false){
-
-        // split line into row array
-        $cursor_pos = 0;
-        $row = array();
-        foreach ($fields_length as $length) {
-            $row[] = trim(substr($line, $cursor_pos, $length));
-            $cursor_pos += $length;
-        }
-
-        $datas[] = $row;
-    }
-    return $datas;
-}
-
-function typeoffile($file){
-    // agreg or sans ?
-    //list( $mutes, $date, $type, $ext) = explode( '.', $file );
-    $type= explode( '.', $file )[2];
-    return $type;
-}
-
 ?>

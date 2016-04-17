@@ -1,5 +1,6 @@
 <?php
 include( "common.php");
+include( "./commonlib.php");
 
 // Get eltvoe
 $files= array("LYC_AGREG/Stabiliser/NET/ELTVOE_A.LYC_AGREG");
