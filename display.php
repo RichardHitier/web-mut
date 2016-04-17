@@ -102,17 +102,18 @@ $data_arr = filterdata( $data_arr, $mat, $dpt, $type, $over );
 $bareme = array_column( $data_arr, 4);
 array_multisort( $bareme, $sort_order, $data_arr);
 
-//$cols = array(1,2,3,4,5,6,7,8,9,10,11,12);
-$cols = array(1,2,3,4,5,6,10,11,12);
-$headings = array( 'phase2',
+$cols = array(1,2,3,4,5,6,7,8,9,10,11,12);
+//$cols = array(1,2,3,4,5,6,10,11,12);
+$headings = array(
+            'phase2',
             'matiere ',
             'dpt ',
             'type etb',
             'bareme',
             'rang',
             'type',
-            'id1',
-            'id2',
+            'idVoeux',
+            'idCandidat',
             'date nais',
             'nom cdt',
             'rne ',
