@@ -150,13 +150,6 @@ foreach ( $data_arr as &$row){
 echo "</table>";
 echo '<span id="hidden_cdt">'.$num.'</span>';
 
-function typeoffile($file){
-    // agreg or sans ?
-    //list( $mutes, $date, $type, $ext) = explode( '.', $file );
-    $type= explode( '.', $file )[2];
-    return $type;
-}
-
 function csv2data( $csvfile ){
 
     // get array from csv

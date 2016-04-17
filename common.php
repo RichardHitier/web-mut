@@ -42,4 +42,12 @@ function tab2data( $tabedfile, $fields_length){
     }
     return $datas;
 }
+
+function typeoffile($file){
+    // agreg or sans ?
+    //list( $mutes, $date, $type, $ext) = explode( '.', $file );
+    $type= explode( '.', $file )[2];
+    return $type;
+}
+
 ?>
