@@ -44,15 +44,22 @@ $eltvoe_file=dirname( $file )."/ELTVOE_A.".typeoffile($file);
 $eltvoe_arr=voeu2bareme( $eltvoe_file );
 //--------------------------------------------------------------
 
-//// now  change idvoeu 2 barem // as column for $data_arr
+// -------------------------------------------------------------
+// now  translate idvoeu 2 barem
+// and insert it as column for $data_arr
 $cdt_arr = array();
 foreach( $data_arr as $row){
-    $barem=$eltvoe_arr[$row[7]];
-    //printf('<'.$row[7].'>\n');
-    //printf('<'.$barem.'>\n');
+    if ( ! isset($eltvoe_arr[$row[7]])) {
+       $barem="NONE (RHI)";
+    } else {
+        $barem=$eltvoe_arr[$row[7]];
+    }
+    //printf('7'.$row[7].'7');
+    //printf('B'.$barem."B<br>\n");
     $row[7]=$barem;
     array_push( $cdt_arr, $row);
 }
+// -------------------------------------------------------------
 //$cdt_arr = array_map( function($row) use ($eltvoe_arr) { row[7] = $eltvoe_arr[row[7]]; return row;} );
 
 echo "<h2>".count($cdt_arr)." lignes dans le fichier: <a href=\"$file\">$file</a></h2>";
@@ -133,6 +140,7 @@ $cdt_arr = filterdata( $cdt_arr, $mat, $dpt, $bar, $type, $over );
 $bareme = array_column( $cdt_arr, 4);
 array_multisort( $bareme, $sort_order, $cdt_arr);
 
+// ------------- columns of the array to be displayed ----------
 $cols = array(0,1,2,3,4,5,6,7,8,9,10,11,12);
 //$cols = array(1,2,3,4,5,6,10,11,12);
 $headings = array(
