@@ -5,6 +5,11 @@
 
 function tab2data( $tabedfile, $fields_length){
 
+    if( !file_exists( $tabedfile) ){
+        echo "ERROR: ".$tabedfile." doesnt exist";
+        return -1;
+    }
+
     $fp=fopen( $tabedfile, "r");
 
     while ( ( $line = fgets($fp, 4096))!== false){
