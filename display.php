@@ -70,55 +70,76 @@ $overs = array( 'x', 'over');
 $types = array( 'x', 'DPT', 'COM', 'GEO', 'COM|GEO', 'ZR', 'ZRE', 'ZRD');
 $orders = array( 'ASC', 'DESC');
 
+echo '<table>';
+echo '<tr>';
+echo '<td>discipline</td><td>matiére</td><td>dpt</td><td>barêmme</td>';
+echo '<td>type</td><td>over</td><td>ordre</td>';
+echo '</tr><tr>';
+echo '<td>';
 echo '<select id="file_select" name="file">';
 foreach( $files as &$lfile ){
     $selected = ($file == $lfile)?'selected="selected"':'';
     echo ' <option value="'. $lfile .'" '. $selected.'>'.typeoffile($lfile).'</option>';
 }
 echo '</select> ';
+echo '</td>';
+
+echo '<td>';
 echo '<select id="mat_select" name="mat">';
 foreach( $mats as &$lmat ){
     $selected = ($mat == $lmat)?'selected="selected"':'';
     echo ' <option value="'. $lmat .'" '. $selected.'>'.$lmat.'</option>';
 }
 echo '</select> ';
+echo '</td>';
 
+echo '<td>';
 echo '<select id="dpt_select" name="dpt">';
 foreach( $dpts as &$ldpt ){
     $selected = ($dpt == $ldpt)?'selected="selected"':'';
     echo ' <option value="'. $ldpt .'" '. $selected.'>'.$ldpt.'</option>';
 }
 echo '</select> ';
+echo '</td>';
 
+echo '<td>';
 echo '<select id="barem_select" name="bar">';
 foreach( $barems as &$lbar ){
     $selected = ($bar == $lbar)?'selected="selected"':'';
     echo ' <option value="'. $lbar .'" '. $selected.'>'.$lbar.'</option>';
 }
 echo '</select> ';
+echo '</td>';
 
+echo '<td>';
 echo '<select id="type_select" name="type">';
 foreach( $types as &$ltype){
     $selected = ($type == $ltype)?'selected="selected"':'';
     echo ' <option value="'. $ltype .'" '.$selected.'>'.$ltype.'</option>';
 }
 echo '</select> ';
+echo '</td>';
 
+echo '<td>';
 echo '<select id="ov_select" name="over">';
 foreach( $overs as &$lover){
     $selected = ($over == $lover)?'selected="selected"':'';
     echo ' <option value="'. $lover .'" '.$selected.'> '.$lover.'</option>';
 }
 echo '</select> ';
+echo '</td>';
 
 
+echo '<td>';
 echo '<select id="order_select" name="order">';
 foreach( $orders as &$lorder){
     $selected = ($order == $lorder)?'selected="selected"':'';
     echo ' <option value="'. $lorder .'" '.$selected.'> barême '.$lorder.'</option>';
 }
 echo '</select> ';
-
+echo '</td>';
+echo '</tr>';
+echo '</table>';
 
 echo '<input type="submit"/>';
 echo '<span id="cdt"> candidats filtrés</span>';
