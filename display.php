@@ -66,14 +66,14 @@ $barems = array_merge( array( 'x') ,
                      array_unique( array_column( $cdt_arr, 7))
                    );
 $dpts = array( 'x', '11', '30', '34', '48', '66');
-$overs = array( 'x', 'over');
+$overs = array( 'x', 'rg100');
 $types = array( 'x', 'DPT', 'COM', 'GEO', 'COM|GEO', 'ZR', 'ZRE', 'ZRD');
 $orders = array( 'ASC', 'DESC');
 
 echo '<table>';
 echo '<tr>';
 echo '<td>discipline</td><td>matiére</td><td>dpt</td><td>barêmme</td>';
-echo '<td>type</td><td>over</td><td>ordre</td>';
+echo '<td>type</td><td>rang&gt;100</td><td>ordre</td>';
 echo '</tr><tr>';
 echo '<td>';
 echo '<select id="file_select" name="file">';
