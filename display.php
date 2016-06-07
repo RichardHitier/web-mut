@@ -33,7 +33,7 @@ $sort_order = ( $order == 'ASC' ) ? SORT_ASC:SORT_DESC;
 
 
 //------------ get datas from selected file --------------------
-$mutes_fields = array(7, 6, 4, 4, 7, 4, 20, 11, 11, 11, 40, 9, 60);
+$mutes_fields = array(7, 6, 4, 4, 7, 4, 26, 11, 11, 11, 40, 9, 60);
 $data_arr = tab2data($file, $mutes_fields);
 //--------------------------------------------------------------
 
