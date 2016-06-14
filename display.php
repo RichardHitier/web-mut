@@ -33,7 +33,8 @@ $sort_order = ( $order == 'ASC' ) ? SORT_ASC:SORT_DESC;
 
 
 //------------ get datas from selected file --------------------
-$mutes_fields = array(7, 6, 4, 4, 7, 4, 26, 11, 11, 11, 40, 9, 60);
+// TODO: mutes_fields should go with $cols and $headings
+$mutes_fields = array(7, 6, 4, 4, 7, 4, 10, 16, 11, 11, 11, 40, 9, 60);
 $data_arr = tab2data($file, $mutes_fields);
 //--------------------------------------------------------------
 
@@ -47,10 +48,12 @@ $eltvoe_arr=voeu2bareme( $eltvoe_file );
 //// now  change idvoeu 2 barem // as column for $data_arr
 $cdt_arr = array();
 foreach( $data_arr as $row){
-    $barem=$eltvoe_arr[$row[7]];
+    $barem="----";
+    if ( isset($eltvoe_arr[$row[8]]))
+        $barem=$eltvoe_arr[$row[8]];
     //printf('<'.$row[7].'>\n');
     //printf('<'.$barem.'>\n');
-    $row[7]=$barem;
+    $row[8]=$barem;
     array_push( $cdt_arr, $row);
 }
 //$cdt_arr = array_map( function($row) use ($eltvoe_arr) { row[7] = $eltvoe_arr[row[7]]; return row;} );
@@ -154,7 +157,7 @@ $cdt_arr = filterdata( $cdt_arr, $mat, $dpt, $bar, $type, $over );
 $bareme = array_column( $cdt_arr, 4);
 array_multisort( $bareme, $sort_order, $cdt_arr);
 
-$cols = array(0,1,2,3,4,5,6,7,8,9,10,11,12);
+$cols = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13);
 //$cols = array(1,2,3,4,5,6,10,11,12);
 $headings = array(
             'phase2',
@@ -164,6 +167,7 @@ $headings = array(
             'bareme',
             'rang',
             'type',
+            'ss-type',
             'idVoeux',
             'idCandidat',
             'date nais',
@@ -189,11 +193,16 @@ foreach ( $cdt_arr as &$row){
     echo "<tr>";
     foreach( $cols as &$col){
         $cont=$row[$col];
-        if( $col == 10 ){
-            $cont='<a href="'.typeoffile($file).'/Stabiliser/Editions/web/ROS-'.$row[8].'.html">'.$row[$col].'</a>';
+        if( $col == 11 ){
+            $cont='<a href="'.typeoffile($file).'/Stabiliser/Editions/web/ROS-'.$row[9].'.html">'.$row[$col].'</a>';
         }
-        if( $col == 12 ){
-            $cont='<a href="'.typeoffile($file).'/Stabiliser/Editions/web/PIL-'.$row[1].'-'.$row[11].'.html">'.$row[$col].'</a>';
+        if( $col == 13 ){
+            $comp="";
+            if( $row[7] == "EREA")
+                $comp="-38";
+            else if ( $row[7] == "SEGPA")
+                $comp="-41";
+            $cont='<a href="'.typeoffile($file).'/Stabiliser/Editions/web/PIL-'.$row[1].'-'.$row[12].$comp.'.html">'.$row[$col].'</a>';
         }
         echo "<td>" . $cont . "</td>\n";
     }
