@@ -75,7 +75,7 @@ $orders = array( 'ASC', 'DESC');
 
 echo '<table>';
 echo '<tr>';
-echo '<td>discipline</td><td>matiére</td><td>dpt</td><td>barêmme</td>';
+echo '<td>discipline</td><td>matière</td><td>dpt</td><td>barème</td>';
 echo '<td>type</td><td>rang&gt;100</td><td>ordre</td>';
 echo '</tr><tr>';
 echo '<td>';
@@ -161,10 +161,10 @@ $cols = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13);
 //$cols = array(1,2,3,4,5,6,10,11,12);
 $headings = array(
             'phase2',
-            'matiere ',
+            'matière ',
             'dpt ',
             'type etb',
-            'bareme',
+            'barème',
             'rang',
             'type',
             'ss-type',
