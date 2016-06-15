@@ -66,7 +66,7 @@ $mats = array_merge( array( 'x') ,
                    );
 // build barem list from data
 $barems = array_merge( array( 'x') ,
-                     array_unique( array_column( $cdt_arr, 7))
+                     array_unique( array_column( $cdt_arr, 8))
                    );
 $dpts = array( 'x', '11', '30', '34', '48', '66');
 $overs = array( 'x', 'rg100');
