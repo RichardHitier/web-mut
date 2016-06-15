@@ -232,7 +232,7 @@ function filterdata($cdt_arr, $mat, $dpt, $bar, $type, $over){
     $data_res = array();
     foreach ( $cdt_arr as $row){
         if ( ( 'x' == $mat or $row[1] == $mat )
-         and ( 'x' == $bar or $row[7] == $bar )
+         and ( 'x' == $bar or $row[8] == $bar )
          and ( 'x' == $dpt or $row[2] == $dpt )
          and ( 'x' == $over or preg_match( '/\d\d\d/', $row[5]) )
          and ( 'x' == $type or ( preg_match( '/'.$type.'/', $row[6]) !== 0 ) ) ) {
