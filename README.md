@@ -1,5 +1,6 @@
-# web-mut
+# web-mut 2018
 small set of php scripts to parse output of webalgo, an "education nationale" tool that produces the "mouvement du personnel"
+
 
 
 ## prerequisites
