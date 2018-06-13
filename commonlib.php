@@ -40,6 +40,8 @@ function voeu2bareme($file){
     $fields = array(10, 10, 14, 5);
     $baremes_arr = tab2data($file, $fields);
 
+    usort($baremes_arr, "baremcmp");
+
     // build associative array
     $baremes_ass = array();
     foreach( $baremes_arr as &$row){
@@ -48,5 +50,15 @@ function voeu2bareme($file){
 
     return $baremes_ass;
 }
+
+
+function baremcmp($a, $b)
+{
+        if ($a[3] == $b[3]) {
+            return 0;
+        }
+        return ($a[3] < $b[3]) ? -1 : 1;
+}
+
 
 ?>
