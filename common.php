@@ -1,3 +1,11 @@
+<?php
+/**
+    Copyright © 2015, 2016, 2017, 2018, 2019 Richard Hitier <hitier.richard@gmail.com>
+    This work is free. You can redistribute it and/or modify it under the
+    terms of the Do What The Fuck You Want To Public License, Version 2,
+    as published by Sam Hocevar. See the COPYING file for more details.
+ **/
+?>
 <a class="nav_btn" href="./index.php">répertoires web</a>
 <a class="nav_btn" href="./display.php">tableau dynamique</a>
 <?php
